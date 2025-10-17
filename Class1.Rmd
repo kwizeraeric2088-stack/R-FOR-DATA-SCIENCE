@@ -1,0 +1,164 @@
+---
+title: "R for Data Science - Class 1"
+author: "Eric KWIZERA"
+date: "2025-09-16"
+output: html_document
+---
+
+# Important Definitions in Data Science
+
+- **Statistics**
+- **Modelling**
+- **Computation**
+- **Calculus**
+
+# Today’s Class Topics
+- Installation of R
+- Installation of RStudio
+- Calculator in R
+- Data Importation in R
+- Data Description (Numerical Measures and Graphs)
+- Data Structures (Vectors, Factors, Lists, Data Frames, Matrices, Arrays)
+
+# Vector: The Foundational R Data Structure
+
+## Numeric
+```{r}
+x <- c(0.5, 0.6)
+age <- c(20,35,32,29)
+summary(age)
+age <- c(35,24,18,24)
+mean(age)
+```
+
+## Logical
+```{r}
+x <- c(TRUE, FALSE)
+x <- c(T, F)
+```
+
+## Character
+```{r}
+x <- c("a", "b", "c")
+class <- c("M", "F", "F", "M")
+```
+
+## Integer
+```{r}
+x <- 9:29
+```
+
+## Complex
+```{r}
+x <- c(1+0i, 2+4i)
+```
+
+# Matrices and Operations
+```{r}
+x <- matrix(1:6, nrow = 2, ncol = 3)
+x
+
+y <- matrix(1:6, nrow = 3, ncol = 2)
+x %*% y
+```
+
+# Lists
+```{r}
+x <- list(1, "a", TRUE, 1 + 4i)
+x
+```
+
+# Factors
+```{r}
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+```
+
+# Handling Missing Data
+```{r}
+x <- c(1, 2, NA, 10, 3)
+is.na(x)
+```
+
+# Coercion
+```{r}
+sum(c(TRUE, TRUE, FALSE, FALSE, FALSE))
+```
+
+# Creating Data Frames
+```{r}
+studentID <- c(1,2,3,4,5)
+math_score <- c(12,17,10,9,NA)
+gender <- c("M","F","M","M","F")
+it_score <- c(13,18,11,10,19)
+scoredata <- data.frame(studentID, gender, math_score, it_score)
+scoredata
+```
+
+# Data Importation
+```{r}
+data_class <- read.table("E:/Datasets/New folder/Book1.txt")
+variable.names(data_class)
+head(data_class)
+tail(data_class)
+summary(data_class$WEIGHT)
+```
+
+# Using Built-in Datasets
+```{r}
+data("airquality")
+variable.names(airquality)
+str(airquality)
+```
+
+# Exploratory Data Analysis
+```{r}
+summary(data_class)
+apply(data_class, 2, mean)
+apply(data_class, 2, sd)
+```
+
+# Relationships and Visualization
+```{r}
+data("iris")
+by(iris$Petal.Length, iris$Species, mean)
+boxplot(iris$Sepal.Length ~ iris$Species, data = iris, main = "Comparison")
+```
+
+# Relationship Between Two Categorical Variables
+```{r}
+ucba <- data.frame(UCBAdmissions)
+cross <- xtabs(Freq ~ Gender + Admit, data = ucba)
+prop.table(cross, 2)
+```
+
+# Bar Chart
+```{r}
+dat <- read.table(text ="ProdA ProdB ProdC ProdD
+1 110 50 60 70
+2 120 50 80 65", header= TRUE)
+barplot(as.matrix(dat), beside = FALSE, col = c("Red", "Green"))
+```
+
+# Scatter Plot
+```{r}
+plot(WEIGHT ~ HEIGHT, data = data_class)
+cor(data_class$HEIGHT, data_class$WEIGHT)
+```
+
+# Linear Models
+```{r}
+data_lm <- lm(WEIGHT ~ HEIGHT, data = data_class)
+summary(data_lm)
+hist(data_class$HEIGHT)
+hist(data_class$WEIGHT, col = "blue")
+```
+
+# Data Management: Create New Variable
+```{r}
+attach(data_class)
+BMI <- round(WEIGHT / (HEIGHT / 100)^2, 2)
+cbind(data_class, BMI)
+summary(BMI)
+stem(BMI, scale = 2)
+```
+
